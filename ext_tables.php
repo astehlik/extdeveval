@@ -1,11 +1,17 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
-	die ('Access denied.');
-}
+defined('TYPO3_MODE') or die();
 
-if (TYPO3_MODE=='BE')	{
-	t3lib_extMgm::addModule('tools', 'txextdevevalM1', '',t3lib_extMgm::extPath($_EXTKEY) . 'mod1/');
-
-	// register top module
-	$GLOBALS['TYPO3_CONF_VARS']['typo3/backend.php']['additionalBackendItems'][] = t3lib_extMgm::extPath('extdeveval') . 'registerToolbarItem.php';
+if (TYPO3_MODE == 'BE') {
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+        'Tx.Extdeveval',
+        'tools',
+        'extDevEvalMain',
+        '',
+        [
+            'LocallangXmlToXliff' => 'selectFile,convertFile',
+        ],
+        [
+            'labels' => 'LLL:EXT:extdeveval/Resources/Private/Language/locallang_mod.xlf',
+        ]
+    );
 }

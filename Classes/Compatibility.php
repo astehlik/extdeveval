@@ -1,4 +1,11 @@
 <?php
+declare(strict_types=1);
+
+namespace Tx\Extdeveval\Controller;
+
+use TYPO3\CMS\Core\Utility\DebugUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,30 +31,15 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+class Compatibility
+{
+    public static function convertVersionNumberToInteger(string $versionNumber): int
+    {
+        return VersionNumberUtility::convertVersionNumberToInteger($versionNumber);
+    }
 
-class Tx_Extdeveval_Compatibility {
-	/**
-	 * @param array $array
-	 * @return string
-	 */
-	public static function viewArray($array) {
-		if (class_exists('t3lib_utility_Debug') && is_callable('t3lib_utility_Debug::viewArray')) {
-			$output = t3lib_utility_Debug::viewArray($array);
-		} else {
-			$output = t3lib_div::view_array($array);
-		}
-		return $output;
-	}
-
-	/**
-	 * @param string $versionNumber
-	 * @return integer
-	 */
-	public static function convertVersionNumberToInteger($versionNumber) {
-		if (class_exists('t3lib_utility_VersionNumber') && is_callable('t3lib_utility_VersionNumber::convertVersionNumberToInteger')) {
-			return t3lib_utility_VersionNumber::convertVersionNumberToInteger($versionNumber);
-		} else {
-			return t3lib_div::int_from_ver($versionNumber);
-		}
-	}
+    public static function viewArray(array $array): string
+    {
+        return DebugUtility::viewArray($array);
+    }
 }

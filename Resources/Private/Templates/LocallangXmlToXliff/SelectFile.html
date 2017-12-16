@@ -1,0 +1,54 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+		xmlns:ed="http://typo3.org/ns/Tx/Extdeveval/ViewHelpers">
+
+<f:layout name="Backend" />
+
+<f:section name="headline">
+<h1>Select file</h1>
+</f:section>
+
+<f:section name="content">
+
+<f:form action="selectFile" method="get">
+
+	<div class="form-group">
+		<label class="control-label">Extension</label>
+		<ed:select.extensionSelect name="packageKey" value="{packageKey}" class="form-control" />
+	</div>
+
+	<f:if condition="{packageKey}">
+		<div class="form-group">
+			<label class="control-label">Extension</label>
+			<ed:select.extensionFileSelect name="packageFile" extensionKey="{packageKey}" fileExtensions="{0: 'xml'}"
+					value="{packageFile}" class="form-control" />
+		</div>
+	</f:if>
+
+	<f:form.hidden name="originalPackageKey" value="{packageKey}" class="form-control" />
+	<input type="hidden" name="M" value="tools_ExtdevevalExtdevevalmain" />
+	<input type="hidden" name="moduleToken" value="{moduleToken}" />
+
+	<div class="form-group">
+		<f:form.submit value="Select" class="btn btn-primary" />
+	</div>
+
+</f:form>
+
+<f:if condition="{packageFile}">
+	<h2>Convert</h2>
+
+	<h3>EXT:{packageKey}:{packageFile}</h3>
+
+	<f:form action="convertFile" method="post">
+		<f:form.hidden name="packageKey" value="{packageKey}" />
+		<f:form.hidden name="packageFile" value="{packageFile}" />
+		<div class="form-group">
+			<f:form.submit value="Convert file" class="btn btn-warning" />
+		</div>
+	</f:form>
+
+</f:if>
+
+</f:section>
+
+</html>
