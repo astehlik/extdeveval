@@ -216,7 +216,7 @@ class LocallangXmlToXliffController extends AbstractModuleController
                 $xml[] = '			</trans-unit>';
             } else {
                 $xml[] = '			<trans-unit id="' . $key . '" xml:space="preserve" approved="yes">';
-                $xml[] = '				<source>' . htmlspecialchars($source) . '</source>';
+                $xml[] = '				<source>' . htmlspecialchars((string)$source) . '</source>';
                 $xml[] = '				<target>' . htmlspecialchars((string)$target) . '</target>';
                 $xml[] = '			</trans-unit>';
             }
